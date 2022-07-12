@@ -3,11 +3,7 @@ const input = document.querySelectorAll('.form-control');
 
   input.forEach(i => {
     if(i.name == 'fio'){
-      i.classList.add('fio-form');
-    }
-    if(i.classList.contains('fio-form')) {
       i.addEventListener('input', (e)=> {
-        console.log(e.target);
         e.target.value = e.target.value.replace(/[^а-яё\ \s]/i, '');
 
         if (e.target.value != '') {
@@ -16,6 +12,15 @@ const input = document.querySelectorAll('.form-control');
         
       });
     }
+    if(i.name == 'tel'){
+      i.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9-()\+\s]/, '');
+        if(e.target.value.length < 11) {
+          return false;
+        }
+      });
+    }
+
   });
 
   

@@ -16,7 +16,7 @@
   \******************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modal */ \"./modules/modal.js\");\n/* harmony import */ var _modules_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/validate */ \"./modules/validate.js\");\n\r\n\r\n\r\n\r\n\r\n(0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\r\n(0,_modules_validate__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modal */ \"./modules/modal.js\");\n/* harmony import */ var _modules_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/validate */ \"./modules/validate.js\");\n/* harmony import */ var _modules_sendForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/sendForm */ \"./modules/sendForm.js\");\n/* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/scroll */ \"./modules/scroll.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n(0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\r\n(0,_modules_validate__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\r\n(0,_modules_sendForm__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({ formId: 'form-callback',\r\nsomeElem: [\r\n  {\r\n    type: 'block',\r\n    id: 'total'\r\n  }\r\n]\r\n});\r\n(0,_modules_scroll__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
@@ -30,13 +30,33 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./modules/scroll.js":
+/*!***************************!*\
+  !*** ./modules/scroll.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\r\nconst scroll = () => {\r\n    const anchors = [].slice.call(document.querySelectorAll('a[href*=\"#\"]')),\r\n      animationTime = 300,\r\n      framesCount = 20;\r\n\r\n      anchors.forEach(function(item) {\r\n      item.addEventListener('click', function(e) {\r\n      e.preventDefault();\r\n\r\n      let coordY = document.querySelector(item.getAttribute('href')).getBoundingClientRect().top + window.pageYOffset;\r\n\r\n      let scroller = setInterval(function() {\r\n        let scrollBy = coordY / framesCount;\r\n        \r\n        if(scrollBy > window.pageYOffset - coordY && window.innerHeight + window.pageYOffset < document.body.offsetHeight) {\r\n          window.scrollBy(0, scrollBy);\r\n        } else {\r\n          window.scrollTo(0, coordY);\r\n          clearInterval(scroller);\r\n        }\r\n      }, animationTime / framesCount);\r\n    });\r\n  });\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (scroll);\n\n//# sourceURL=webpack:///./modules/scroll.js?");
+
+/***/ }),
+
+/***/ "./modules/sendForm.js":
+/*!*****************************!*\
+  !*** ./modules/sendForm.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst sendForm = ({formId, someElem = []}) => {\r\n  const input = document.querySelectorAll('.form-control');\r\n\r\n  const form = document.getElementById(formId);\r\n  const statusBlock = document.createElement('div');\r\n  const loadText = 'Загрузка...';\r\n  const errorText = 'Ошибка...';\r\n  const successText = 'Выш запрос отправлен! Наш менеджер с вами свяжется!';\r\n\r\n  const validate = (list) => {\r\n    let success = true;\r\n\r\n    list.forEach(input => {\r\n      if(input.value.length >= 11 && input.type == 'tel') {\r\n        success = true;\r\n      } else {\r\n        success = false;\r\n      }\r\n    });\r\n    return success;\r\n  };\r\n\r\n  const sendData = (data) => {\r\n    return fetch('https://jsonplaceholder.typicode.com/posts', {\r\n      method: 'POST',\r\n      body:  JSON.stringify(data),\r\n      headers: {\r\n        \"Content-Type\": \"application/json\"\r\n      }\r\n    }).then(res => res.json());\r\n  };\r\n  const submitForm = () => {\r\n    const formElements = form.querySelectorAll('input');\r\n    const formData = new FormData(form);\r\n    const formBody = {};\r\n\r\n    statusBlock.textContent = loadText;\r\n    form.append(statusBlock);\r\n\r\n    formData.forEach((val, key) => {\r\n      formBody[key] = val;\r\n    });\r\n    someElem.forEach(e => {\r\n      const elem = document.getElementById(e.id);\r\n\r\n     if(e.type === 'block'){\r\n      formBody[e.id] = elem.textContent;\r\n     }else if(e.type === 'input') {\r\n      formBody[e.id] = elem.value;\r\n     }\r\n    });\r\n\r\n    if(validate(formElements)) {\r\n      sendData(formBody)\r\n        .then(date => {\r\n          statusBlock.textContent = successText;\r\n\r\n          formElements.forEach(input => {\r\n            input.value = '';\r\n          });\r\n        })\r\n        .catch(error => {\r\n          statusBlock.textContent = successText;\r\n        });\r\n    } else {\r\n      statusBlock.textContent = errorText;\r\n      \r\n    }\r\n  };\r\n  form.addEventListener('submit', (e) => {\r\n    e.preventDefault();\r\n    console.log('dwq');\r\n    \r\n    submitForm();\r\n  });\r\n\r\n  // try {\r\n  //   if (!form) {\r\n  //     throw new Error ('Верните форму');\r\n  //   }\r\n\r\n  //   form.addEventListener('submit', (e) => {\r\n  //     e.preventDefault();\r\n  //     console.log(erro);\r\n      \r\n  //     submitForm();\r\n  //   });\r\n  // } catch (error) {\r\n  //   console.log(error.message);\r\n  // }\r\n\r\n\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sendForm);\n\n//# sourceURL=webpack:///./modules/sendForm.js?");
+
+/***/ }),
+
 /***/ "./modules/validate.js":
 /*!*****************************!*\
   !*** ./modules/validate.js ***!
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst validate = () => {\r\nconst input = document.querySelectorAll('.form-control');\r\n\r\n  input.forEach(i => {\r\n    if(i.name == 'fio'){\r\n      i.classList.add('fio-form');\r\n    }\r\n    if(i.classList.contains('fio-form')) {\r\n      i.addEventListener('input', (e)=> {\r\n        console.log(e.target);\r\n        e.target.value = e.target.value.replace(/[^а-яё\\ \\s]/i, '');\r\n\r\n        if (e.target.value != '') {\r\n          e.target.value = e.target.value[0].toUpperCase() + e.target.value.slice(1);\r\n        }\r\n        \r\n      });\r\n    }\r\n  });\r\n\r\n  \r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);\n\n//# sourceURL=webpack:///./modules/validate.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst validate = () => {\r\nconst input = document.querySelectorAll('.form-control');\r\n\r\n  input.forEach(i => {\r\n    if(i.name == 'fio'){\r\n      i.addEventListener('input', (e)=> {\r\n        e.target.value = e.target.value.replace(/[^а-яё\\ \\s]/i, '');\r\n\r\n        if (e.target.value != '') {\r\n          e.target.value = e.target.value[0].toUpperCase() + e.target.value.slice(1);\r\n        }\r\n        \r\n      });\r\n    }\r\n    if(i.name == 'tel'){\r\n      i.addEventListener('input', (e) => {\r\n        e.target.value = e.target.value.replace(/[^0-9-()\\+\\s]/, '');\r\n        if(e.target.value.length < 11) {\r\n          return false;\r\n        }\r\n      });\r\n    }\r\n\r\n  });\r\n\r\n  \r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);\n\n//# sourceURL=webpack:///./modules/validate.js?");
 
 /***/ })
 

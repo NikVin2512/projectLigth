@@ -32,7 +32,7 @@
 
   <body>
     <!-- * * * * * * Mobile menu * * * * * * -->
-    <div class="mobile-menu">
+    <!-- <div class="mobile-menu">
       <span class="mobile-menu-close close"></span>
       <a href="#callback" class="callback-btn fancyboxModal hidden-sm"
         ><i class="fa fa-phone"></i> Заказать звонок</a
@@ -44,7 +44,7 @@
         <li><a href="#contacts">Контакты</a></li>
       </ul>
     </div>
-    <div class="overlay"></div>
+    <div class="overlay"></div> -->
     <!-- * * * * * * Mobile menu: end * * * * * * -->
 
     <div class="main-wrapper">
@@ -672,7 +672,7 @@
       <div class="title-h2">Мы перезвоним через 5 минут!</div>
       <br />
       <div class="rf">
-        <form action="" name="form-callback">
+        <form id="form-callback" action="" name="form-callback">
           <div class="form-group">
             <input
               type="text"
@@ -727,6 +727,7 @@
               name="tel"
               class="form-control tel required"
               placeholder="Телефон*"
+              required
             />
           </div>
 
