@@ -32,7 +32,7 @@
 
   <body>
     <!-- * * * * * * Mobile menu * * * * * * -->
-    <!-- <div class="mobile-menu">
+    <div class="mobile-menu">
       <span class="mobile-menu-close close"></span>
       <a href="#callback" class="callback-btn fancyboxModal hidden-sm"
         ><i class="fa fa-phone"></i> Заказать звонок</a
@@ -44,7 +44,7 @@
         <li><a href="#contacts">Контакты</a></li>
       </ul>
     </div>
-    <div class="overlay"></div> -->
+    <div class="overlay"></div>
     <!-- * * * * * * Mobile menu: end * * * * * * -->
 
     <div class="main-wrapper">
@@ -96,13 +96,13 @@
           </div>
         </div>
       </div>
-      <div class="header-push"></div>
+      <div id="header" class="header-push"></div>
       <!-- * * * * * * Header: end * * * * * * -->
 
       <!-- * * * * * * Top slider * * * * * * -->
       <div class="top-slider white text-center relative">
         <div
-          class="item relative"
+          class="item relative item-active"
           style="
             background: url(images/slide1.jpg) 50% 50% no-repeat;
             background-size: cover;
@@ -158,6 +158,7 @@
             </div>
           </div>
         </div>
+        <ul class="slick-dots"></ul>
       </div>
       <!-- * * * * * * Top slider: end * * * * * * -->
 
@@ -810,7 +811,9 @@
     </div>
 
     <!-- * * * * * * button to top * * * * * * -->
-    <img src="images/32_chevron_up.svg" alt="up" class="up" />
+    <a href="#header"
+      ><img src="images/32_chevron_up.svg" alt="up" class="up"
+    /></a>
     <!-- * * * * * * button to top: end * * * * * * -->
     <script src="./js/main.js" defer></script>
     <!--[if lt IE 9]>
