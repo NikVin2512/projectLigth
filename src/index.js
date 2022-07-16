@@ -3,6 +3,7 @@ import validate from './modules/validate';
 import sendForm from './modules/sendForm';
 import scroll from './modules/scroll';
 import topSlider from './modules/topSlider';
+import carousel from './modules/carousel';
 
 
 
@@ -18,3 +19,4 @@ someElem: [
 });
 scroll();
 topSlider();
+carousel();
