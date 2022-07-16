@@ -4,6 +4,7 @@ import sendForm from './modules/sendForm';
 import scroll from './modules/scroll';
 import topSlider from './modules/topSlider';
 import carousel from './modules/carousel';
+import accordeon from './modules/accordeon';
 
 
 
@@ -20,3 +21,4 @@ someElem: [
 scroll();
 topSlider();
 carousel();
+accordeon();

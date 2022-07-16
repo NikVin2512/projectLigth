@@ -1027,7 +1027,7 @@ video#video_background {
 .accordeon .element.active .title:before {
 	background: url(../images/minus.png) 50% 50% no-repeat #333;
 }
-.accordeon > div:first-of-type .element-content {
+.accordeon .block{
 	display: block;
 }
 .accordeon .element .title:hover:before {
@@ -1160,7 +1160,7 @@ video#video_background {
 	text-align: center;
 	text-transform: uppercase;
 	border: 2px solid #fff;
-	cursor: pointer;
+	cursor: pointer
 }
 .services-section .element:hover .img-wrapper:before {
 	opacity: 1;
