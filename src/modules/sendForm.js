@@ -1,17 +1,19 @@
-const sendForm = ({formId, someElem = []}) => {
-  const input = document.querySelectorAll('.form-control');
+'use strict';
 
+const sendForm = ({formId}) => {
   const form = document.getElementById(formId);
+  const btnCallback = document.getElementById('btn-callback');
   const statusBlock = document.createElement('div');
   const loadText = 'Загрузка...';
   const errorText = 'Ошибка...';
   const successText = 'Выш запрос отправлен! Наш менеджер с вами свяжется!';
 
+
   const validate = (list) => {
     let success = true;
 
     list.forEach(input => {
-      if(input.value.length >= 11 && input.type == 'tel') {
+      if(input.value.length >= 11 && input.name == 'tel') {
         success = true;
       } else {
         success = false;
@@ -40,15 +42,7 @@ const sendForm = ({formId, someElem = []}) => {
     formData.forEach((val, key) => {
       formBody[key] = val;
     });
-    someElem.forEach(e => {
-      const elem = document.getElementById(e.id);
 
-     if(e.type === 'block'){
-      formBody[e.id] = elem.textContent;
-     }else if(e.type === 'input') {
-      formBody[e.id] = elem.value;
-     }
-    });
 
     if(validate(formElements)) {
       sendData(formBody)
@@ -67,28 +61,14 @@ const sendForm = ({formId, someElem = []}) => {
       
     }
   };
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    console.log('dwq');
-    
-    submitForm();
-  });
 
-  // try {
-  //   if (!form) {
-  //     throw new Error ('Верните форму');
-  //   }
 
-  //   form.addEventListener('submit', (e) => {
-  //     e.preventDefault();
-  //     console.log(erro);
-      
-  //     submitForm();
-  //   });
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
 
+  btnCallback.addEventListener('click', (e) => {
+      e.preventDefault();
+  
+      submitForm();
+    });
 
 };
 
