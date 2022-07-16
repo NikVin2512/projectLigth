@@ -21,7 +21,6 @@ const carousel = () => {
 
     position -= item >= slidesToScroll ? movePosition : item * itemWidth;
 
-    console.log(position);
     setPosition();
     checkBtn();
   });
@@ -31,7 +30,6 @@ const carousel = () => {
 
     position += item >= slidesToScroll ? movePosition : item * itemWidth;
 
-    console.log(position);
     setPosition();
     checkBtn();
   });
@@ -45,7 +43,6 @@ const carousel = () => {
   };
 
   checkBtn();
-  console.log(servicesElements.clientWidth);
   
 };
 

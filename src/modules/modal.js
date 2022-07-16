@@ -6,6 +6,13 @@ const modal = () => {
   const callbackBtn = document.querySelectorAll('.callback-btn');
   const buttonServices = document.querySelector('.button-services');
   const body = document.querySelector('body');
+  const wrapper = document.querySelectorAll('.services-item  .img-wrapper');
+
+  wrapper.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modalBlock();
+    });
+  });
 
   const modalBlock = () => {
     modalCallback.style.display = 'block';
