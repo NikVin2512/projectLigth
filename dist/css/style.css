@@ -254,6 +254,9 @@ a.absolute {
 .form-group {
 	position: relative;
 }
+.form-error {
+	border-color: red;
+}
 .modal {
 	display: none;
 	width: 460px;

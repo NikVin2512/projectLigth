@@ -14,8 +14,10 @@ const input = document.querySelectorAll('.form-control');
     }
     if(i.name == 'tel'){
       i.addEventListener('input', (e) => {
+        e.target.classList.remove('form-error');
         e.target.value = e.target.value.replace(/[^0-9-()\+\s]/, '');
         if(e.target.value.length < 11) {
+          e.target.classList.add('form-error');
           return false;
         }
       });
